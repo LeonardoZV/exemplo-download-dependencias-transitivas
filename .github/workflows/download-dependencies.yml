@@ -39,10 +39,11 @@ jobs:
         DEPENDENCY_DIR="libs/target/dependencies"
         DEPENDENCY_LIST=$(find $DEPENDENCY_DIR -name "*.jar" | paste -sd "," -)
         MODIFIED_DEPENDENCY_LIST="${DEPENDENCY_LIST//libs\/target\/dependencies/s3_bucket}"
-        echo "Dependencies: $MODIFIED_DEPENDENCY_LIST"
+        echo "Dependencies original path: $DEPENDENCY_LIST"
+        echo "Dependencies S3 path: $MODIFIED_DEPENDENCY_LIST"
         echo "dependencies_string=$MODIFIED_DEPENDENCY_LIST" >> $GITHUB_OUTPUT
 
     # Step 5: Output the final string (optional)
-    - name: Output dependencies string
-      run: |
-        echo "Final dependencies string: ${{ steps.create_string.outputs.dependencies_string }}"
+    # - name: Output dependencies string
+    #   run: |
+    #     echo "Dependencies: ${{ steps.create_string.outputs.dependencies_string }}"

@@ -1,0 +1,39 @@
+name: Download Maven Dependencies
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  download-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Set up JDK 11 (you can adjust the version if necessary)
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    # Step 3: Run Maven to download dependencies
+    - name: Download dependencies
+      run: mvn clean install -f libs/pom.xml
+
+    # Step 4: Create string with paths of dependencies
+    - name: Create dependencies string
+      id: create_string
+      run: |
+        DEPENDENCY_DIR="target/dependencies"
+        DEPENDENCY_LIST=$(find $DEPENDENCY_DIR -name "*.jar" | paste -sd "," -)
+        echo "Dependencies: $DEPENDENCY_LIST"
+        echo "::set-output name=dependencies_string::$DEPENDENCY_LIST"
+
+    # Step 5: Output the final string (optional)
+    - name: Output dependencies string
+      run: echo "Final dependencies string: ${{ steps.create_string.outputs.dependencies_string }}"

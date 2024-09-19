@@ -29,7 +29,7 @@ jobs:
     - name: Create dependencies string
       id: create_string
       run: |
-        DEPENDENCY_DIR="target/dependencies"
+        DEPENDENCY_DIR="libs/target/dependencies"
         DEPENDENCY_LIST=$(find $DEPENDENCY_DIR -name "*.jar" | paste -sd "," -)
         echo "Dependencies: $DEPENDENCY_LIST"
         echo "::set-output name=dependencies_string::$DEPENDENCY_LIST"

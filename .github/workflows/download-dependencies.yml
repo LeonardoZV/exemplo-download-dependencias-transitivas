@@ -32,7 +32,7 @@ jobs:
         DEPENDENCY_DIR="libs/target/dependencies"
         DEPENDENCY_LIST=$(find $DEPENDENCY_DIR -name "*.jar" | paste -sd "," -)
         echo "Dependencies: $DEPENDENCY_LIST"
-        echo "::set-output name=dependencies_string::$DEPENDENCY_LIST"
+        echo "dependencies_string=$DEPENDENCY_LIST" >> $GITHUB_OUTPUT
 
     # Step 5: Output the final string (optional)
     - name: Output dependencies string

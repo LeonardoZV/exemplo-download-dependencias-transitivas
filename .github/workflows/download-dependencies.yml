@@ -36,4 +36,5 @@ jobs:
 
     # Step 5: Output the final string (optional)
     - name: Output dependencies string
-      run: echo "Final dependencies string: ${{ steps.create_string.outputs.dependencies_string }}"
+      run: |
+        echo "Final dependencies string: ${{ steps.create_string.outputs.dependencies_string }}"
